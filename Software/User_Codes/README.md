@@ -1,4 +1,4 @@
-================================================================
+
 ## Iran Univeristy of Science and Technology
 ## Assignment 1: Assembly code execution on phoeniX RISC-V core
 
@@ -6,7 +6,7 @@
 - Team Members: Amir mohhammad jamshidi
 - Student ID: 400412328
 - Date:05/26/2024
-=================================================================
+
 # Report
 
 ## RISC-V Architecture
