@@ -120,3 +120,38 @@ These optimizations help to ensure that the assembly code runs efficiently on RI
 
 Overall, the RISC-V assembly code in this repository demonstrates the implementation of fundamental algorithms using the capabilities and conventions of the RISC-V architecture. The code can serve as a reference for understanding RISC-V assembly programming and as a starting point for further exploration and development.
 
+Certainly! Here's the information about the quicksort algorithm and a summary of the RISC-V code for it.
+
+## Quicksort Algorithm
+
+Quicksort is a popular sorting algorithm that uses a divide-and-conquer strategy to sort a list of elements. The algorithm works as follows:
+
+1. **Divide**: The algorithm selects a 'pivot' element from the list. This pivot element is used to partition the other elements into two sub-lists: those less than the pivot and those greater than or equal to the pivot.
+2. **Conquer**: The algorithm recursively sorts the sub-lists, resulting in a sorted list.
+
+The key steps in the quicksort algorithm are:
+
+1. Selecting the pivot element
+2. Partitioning the list around the pivot
+3. Recursively sorting the sub-lists
+
+Quicksort is known for its average-case time complexity of O(n log n), making it one of the most efficient comparison-based sorting algorithms.
+
+## Summary of the RISC-V Quicksort Code
+
+The RISC-V assembly code in this repository implements the quicksort algorithm. Here's a summary of the code:
+
+1. **Function Definition**: The `quicksort` function is defined, which takes two arguments: the address of the array to be sorted (`a0`) and the number of elements in the array (`a1`).
+
+2. **Prologue**: The function prologue saves the necessary register values on the stack, such as the return address and callee-saved registers.
+
+3. **Base Case**: The code checks for the base case of the recursion, where the array has 0 or 1 elements. If so, it simply returns.
+
+4. **Partitioning**: The code implements the partitioning step of the quicksort algorithm. It selects the last element as the pivot, and then uses a loop to partition the array around the pivot.
+
+5. **Recursive Calls**: After the partitioning, the code recursively calls the `quicksort` function on the left and right sub-arrays.
+
+6. **Epilogue**: The function epilogue restores the saved register values from the stack and returns to the caller.
+
+The RISC-V assembly code for the `quicksort` function demonstrates the efficient implementation of the quicksort algorithm using the RISC-V instruction set and register conventions. It showcases the use of function calls, stack management, and control flow constructs, which are essential for building larger programs in RISC-V assembly.
+
