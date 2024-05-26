@@ -76,4 +76,47 @@ python AssembleX_V1.0.py code my_project
 ```
 Provided that you name your project sub-directory correctly the AssembleX software will create `my_project_firmware.hex` and fed it directly to the testbench of phoeniX processor. After that, iverilog and GTKWave are used to compile the design and view the selected waveforms.
 </div>
+Here's a summary of the RISC-V assembly code in this repository using Markdown:
+
+## RISC-V Architecture
+
+RISC-V is an open-source instruction set architecture (ISA) based on the reduced instruction set computer (RISC) principles. It is designed to be simple, efficient, and scalable, making it suitable for a wide range of applications, from embedded systems to high-performance computing.
+
+The RISC-V ISA defines a set of 32-bit and 64-bit instructions, registers, and addressing modes. The assembly code in this repository is written for the 64-bit RISC-V architecture, which provides 31 general-purpose registers (x0 to x31) and various control and status registers.
+
+## Assembly Code Structure
+
+The assembly code files in this repository follow a standard structure:
+
+1. **Directives**: The code begins with directives that specify the section of memory where the code is located (`.section .text`) and the global symbols (`.globl`) that can be called from other parts of the program.
+
+2. **Function Definitions**: The assembly code defines the entry points for the various functions, such as `quicksort` and `sqrt`. These functions are labeled with a symbolic name that can be referenced from other parts of the program.
+
+3. **Prologue and Epilogue**: Each function has a prologue and an epilogue. The prologue saves the current state of the function, such as the return address and any callee-saved registers. The epilogue restores the saved state and returns control to the calling function.
+
+4. **Function Logic**: The main logic of the function is implemented in the body of the function. This typically involves loading and manipulating data, performing calculations, and controlling the flow of execution using branch instructions.
+
+5. **Utility Functions**: Some of the assembly code files may also include utility functions or helper routines that are used by the main algorithms.
+
+## Calling Conventions
+
+The assembly code in this repository follows the standard RISC-V calling conventions, which define how function arguments are passed and how return values are handled. In the RISC-V architecture:
+
+- Function arguments are passed in the `a0` to `a7` registers.
+- The return value is typically stored in the `a0` register.
+- Callee-saved registers (`s0` to `s11`) must be preserved across function calls, while caller-saved registers (`t0` to `t6`) can be modified without preserving their values.
+
+The assembly code adheres to these conventions to ensure compatibility and interoperability with other RISC-V software components.
+
+## Optimization Techniques
+
+The assembly code in this repository may employ various optimization techniques to improve performance, such as:
+
+- **Efficient memory access**: The code tries to minimize memory accesses and leverage the available registers for temporary storage.
+- **Branch prediction**: The code may use branch instructions that are designed to provide accurate branch predictions, reducing the impact of branch mispredictions.
+- **Instruction-level parallelism**: The code may take advantage of the RISC-V architecture's ability to execute multiple instructions concurrently, where possible.
+
+These optimizations help to ensure that the assembly code runs efficiently on RISC-V hardware.
+
+Overall, the RISC-V assembly code in this repository demonstrates the implementation of fundamental algorithms using the capabilities and conventions of the RISC-V architecture. The code can serve as a reference for understanding RISC-V assembly programming and as a starting point for further exploration and development.
 
