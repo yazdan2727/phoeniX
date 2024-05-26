@@ -270,7 +270,7 @@ The choice of algorithm depends on the specific requirements of the application,
 
 
 
-# Initialization
+## Initialization
 ```
     addi x10, x0, 81  # Load input number (81) into x10 (a0)
     add x5, x0, x0    # x5 = low = 0 (initialize low bound)
@@ -279,7 +279,7 @@ The choice of algorithm depends on the specific requirements of the application,
     add x8, x0, x0    # x8 = mid * mid (initialize to 0)
 ```
 
-# Binary Search Loop
+## Binary Search Loop
 ```
 binary_search:
     # Check if low is greater than high
@@ -295,28 +295,28 @@ binary_search:
     bgt x8, x10, mid_is_too_high # if mid * mid > input number, search in the lower half
 ```
 
-# Mid is Exact
+## Mid is Exact
 ```
 mid_is_exact:
     add x6, x7, x0  # if mid * mid == input number, set result to mid
     j finish        # exit the loop and finish the search
 ```
 
-# Mid is Too Low
+## Mid is Too Low
 ```
 mid_is_too_low:
     addi x5, x7, 1  # if mid * mid < input number, set low = mid + 1
     j binary_search # repeat the binary search
 ```
 
-# Mid is Too High
+## Mid is Too High
 ```
 mid_is_too_high:
     addi x6, x7, -1 # if mid * mid > input number, set high = mid - 1
     j binary_search # repeat the binary search
 ```
 
-# Finishing the Program
+## Finishing the Program
 ```
 finish:
     add x10, x6, x0 # result = high (integer square root)
