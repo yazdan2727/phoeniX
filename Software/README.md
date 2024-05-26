@@ -155,3 +155,82 @@ The RISC-V assembly code in this repository implements the quicksort algorithm. 
 
 The RISC-V assembly code for the `quicksort` function demonstrates the efficient implementation of the quicksort algorithm using the RISC-V instruction set and register conventions. It showcases the use of function calls, stack management, and control flow constructs, which are essential for building larger programs in RISC-V assembly.
 
+## Quick Sort Code Overview :
+
+```
+.globl _start
+```
+This line declares the `_start` label as the global entry point for the program.
+
+```
+_start:
+    # Initialize stack pointer to a larger stack space
+    lui   sp, 0x2          # Upper 20 bits set to 0x20000 (sp = 0x20000000)
+    addi  sp, sp, 0        # No change to lower bits
+```
+The `_start` label marks the beginning of the program. The code initializes the stack pointer (`sp`) to a larger stack space by setting the upper 20 bits to `0x20000` (resulting in `0x20000000`), and then adding `0` to the lower bits.
+
+```
+    # Create stack space
+    addi  sp, sp, -64      # Allocate stack space (64 bytes)
+```
+The code allocates 64 bytes of stack space by subtracting 64 from the stack pointer.
+
+```
+    # Save s0
+    sw    s0, 60(sp)       # Save s0 register to stack
+```
+The code saves the value of the `s0` register to the stack at the address `60(sp)`.
+
+```
+    # Update s0
+    addi  s0, sp, 64       # Set s0 to the top of the allocated stack
+```
+The code updates the `s0` register to point to the top of the allocated stack space (64 bytes above the current stack pointer).
+
+```
+    # Initialize arr[] in memory
+    li    t0, 6
+    sw    t0, -48(s0)      # arr[0] = 6
+    sw    t0, -44(s0)      # arr[1] = 6
+    li    t0, 1
+    sw    t0, -40(s0)      # arr[2] = 1
+    li    t0, 2
+    sw    t0, -36(s0)      # arr[3] = 2
+    li    t0, 4
+    sw    t0, -32(s0)      # arr[4] = 4
+```
+The code initializes an array `arr[]` in memory, with the following values: `[6, 6, 1, 2, 4]`.
+
+```
+    # Set up arguments for quickSort call
+    addi  a0, s0, -48      # a0 = base address of array
+    li    a1, 0            # a1 = low index (0)
+    li    a2, 4            # a2 = high index (4)
+```
+The code sets up the arguments for the `quicksort` function call:
+- `a0` is the base address of the array
+- `a1` is the low index (0)
+- `a2` is the high index (4)
+
+```
+    # Call quicksort
+    jal   ra, quicksort    # Jump and link to quicksort function
+```
+The code calls the `quicksort` function, saving the return address in the `ra` register.
+
+```
+    # Load sorted elements back to registers for inspection
+    lw s2, -48(s0)  # Load arr[0] into s2
+    lw s3, -44(s0)  # Load arr[1] into s3
+    lw s4, -40(s0)  # Load arr[2] into s4
+    lw s5, -36(s0)  # Load arr[3] into s5
+    lw s6, -32(s0)  # Load arr[4] into s6
+```
+The code loads the sorted elements from the array back into the `s2`, `s3`, `s4`, `s5`, and `s6` registers for inspection.
+
+```
+    # Restore registers and exit
+    lw    s0, 60(sp)        # Restore s0
+    addi  sp, sp
+
