@@ -77,6 +77,17 @@ python AssembleX_V1.0.py code my_project
 Provided that you name your project sub-directory correctly the AssembleX software will create `my_project_firmware.hex` and fed it directly to the testbench of phoeniX processor. After that, iverilog and GTKWave are used to compile the design and view the selected waveforms.
 </div>
 
+Computer Organization - Spring 2024
+==============================================================
+## Iran Univeristy of Science and Technology
+## Assignment 1: Assembly code execution on phoeniX RISC-V core
+
+- Name:Seyed Yazdan Seyed Babaei Sales
+- Team Members: Amir mohhammad jamshidi
+- Student ID: 400412328
+- Date:05/26/2024
+
+# Report
 
 ## RISC-V Architecture
 
