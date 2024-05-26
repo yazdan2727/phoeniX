@@ -76,7 +76,7 @@ python AssembleX_V1.0.py code my_project
 ```
 Provided that you name your project sub-directory correctly the AssembleX software will create `my_project_firmware.hex` and fed it directly to the testbench of phoeniX processor. After that, iverilog and GTKWave are used to compile the design and view the selected waveforms.
 </div>
-Here's a summary of the RISC-V assembly code in this repository using Markdown:
+
 
 ## RISC-V Architecture
 
@@ -155,7 +155,7 @@ The RISC-V assembly code in this repository implements the quicksort algorithm. 
 
 The RISC-V assembly code for the `quicksort` function demonstrates the efficient implementation of the quicksort algorithm using the RISC-V instruction set and register conventions. It showcases the use of function calls, stack management, and control flow constructs, which are essential for building larger programs in RISC-V assembly.
 
-## Quick Sort Code Overview :
+# Quick Sort Code Overview :
 
 ```
 .globl _start
@@ -267,3 +267,79 @@ The code loads the sorted elements from the array back into the `s2`, `s3`, `s4`
 ## Conclusion
 The choice of algorithm depends on the specific requirements of the application, such as the size of the input numbers, the available hardware resources, and the desired level of accuracy and performance.
 
+
+
+
+```
+.globl _start
+```
+This line declares a global symbol `_start`, which is the entry point of the program.
+
+```
+_start:
+```
+This is the label for the start of the program.
+
+```
+    # Initialize input number and binary search bounds
+    addi x10, x0, 81  # Load input number (81) into x10 (a0)
+    add x5, x0, x0    # x5 = low = 0 (initialize low bound)
+    add x6, x10, x0   # x6 = high = x10 (initialize high bound to input number)
+    add x7, x0, x0    # x7 = mid (initialize mid to 0)
+    add x8, x0, x0    # x8 = mid * mid (initialize to 0)
+```
+This section initializes the input number (81) and the binary search bounds. The low bound is set to 0, the high bound is set to the input number, and the mid and mid-squared values are initialized to 0.
+
+```
+binary_search:
+```
+This is the label for the binary search loop.
+
+```
+    # Check if low is greater than high
+    bgt x5, x6, finish           # if low > high, exit the loop and finish the search
+```
+This checks if the low bound is greater than the high bound. If so, it jumps to the `finish` label to exit the loop.
+
+```
+    # Calculate mid = (low + high) / 2
+    add x7, x5, x6               # x7 = low + high
+    srai x7, x7, 1               # x7 = mid = (low + high) / 2 (shift right arithmetic by 1)
+```
+This calculates the mid value by taking the average of the low and high bounds.
+
+```
+    # Compare mid*mid with the input number
+    mul x8, x7, x7               # x8 = mid * mid
+    blt x8, x10, mid_is_too_low  # if mid * mid < input number, search in the upper half
+    bgt x8, x10, mid_is_too_high # if mid * mid > input number, search in the lower half
+```
+This compares the square of the mid value with the input number. If the square is less than the input number, it jumps to the `mid_is_too_low` label. If the square is greater than the input number, it jumps to the `mid_is_too_high` label.
+
+```
+mid_is_exact:
+    add x6, x7, x0  # if mid * mid == input number, set result to mid
+    j finish        # exit the loop and finish the search
+```
+If the square of the mid value is exactly equal to the input number, the mid value is the integer square root, so it sets the result to the mid value and jumps to the `finish` label.
+
+```
+mid_is_too_low:
+    addi x5, x7, 1  # if mid * mid < input number, set low = mid + 1
+    j binary_search # repeat the binary search
+```
+If the square of the mid value is less than the input number, it updates the low bound to mid + 1 and jumps back to the `binary_search` label to continue the search.
+
+```
+mid_is_too_high:
+    addi x6, x7, -1 # if mid * mid > input number, set high = mid - 1
+    j binary_search # repeat the binary search
+```
+If the square of the mid value is greater than the input number, it updates the high bound to mid - 1 and jumps back to the `binary_search` label to continue the search.
+
+```
+finish:
+    add x10, x6, x0 # result = high (integer square root)
+    ebreak          # end of program (trigger a breakpoint)
+```
+After the binary search is complete, the result (integer square root) is stored in x10 (a0), and the program ends by triggering a breakpoint.
