@@ -170,26 +170,26 @@ _start:
 ```
 The `_start` label marks the beginning of the program. The code initializes the stack pointer (`sp`) to a larger stack space by setting the upper 20 bits to `0x20000` (resulting in `0x20000000`), and then adding `0` to the lower bits.
 
-```
-    # Create stack space
+
+# Create stack space
     addi  sp, sp, -64      # Allocate stack space (64 bytes)
-```
+
 The code allocates 64 bytes of stack space by subtracting 64 from the stack pointer.
 
-```
-    # Save s0
+
+# Save s0
     sw    s0, 60(sp)       # Save s0 register to stack
-```
+
 The code saves the value of the `s0` register to the stack at the address `60(sp)`.
 
-```
-    # Update s0
+
+# Update s0
     addi  s0, sp, 64       # Set s0 to the top of the allocated stack
-```
+
 The code updates the `s0` register to point to the top of the allocated stack space (64 bytes above the current stack pointer).
 
-```
-    # Initialize arr[] in memory
+
+# Initialize arr[] in memory
     li    t0, 6
     sw    t0, -48(s0)      # arr[0] = 6
     sw    t0, -44(s0)      # arr[1] = 6
@@ -203,7 +203,7 @@ The code updates the `s0` register to point to the top of the allocated stack sp
 The code initializes an array `arr[]` in memory, with the following values: `[6, 6, 1, 2, 4]`.
 
 ```
-    # Set up arguments for quickSort call
+# Set up arguments for quickSort call
     addi  a0, s0, -48      # a0 = base address of array
     li    a1, 0            # a1 = low index (0)
     li    a2, 4            # a2 = high index (4)
@@ -214,13 +214,13 @@ The code sets up the arguments for the `quicksort` function call:
 - `a2` is the high index (4)
 
 ```
-    # Call quicksort
+# Call quicksort
     jal   ra, quicksort    # Jump and link to quicksort function
 ```
 The code calls the `quicksort` function, saving the return address in the `ra` register.
 
 ```
-    # Load sorted elements back to registers for inspection
+# Load sorted elements back to registers for inspection
     lw s2, -48(s0)  # Load arr[0] into s2
     lw s3, -44(s0)  # Load arr[1] into s3
     lw s4, -40(s0)  # Load arr[2] into s4
@@ -230,11 +230,11 @@ The code calls the `quicksort` function, saving the return address in the `ra` r
 The code loads the sorted elements from the array back into the `s2`, `s3`, `s4`, `s5`, and `s6` registers for inspection.
 
 ```
-    # Restore registers and exit
+# Restore registers and exit
     lw    s0, 60(sp)        # Restore s0
     addi  sp, sp
 
-Sure, here's the information in Markdown format:
+
 
 # Integer Square Root
 
